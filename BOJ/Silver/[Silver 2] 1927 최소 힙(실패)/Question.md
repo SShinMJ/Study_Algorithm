@@ -1,4 +1,4 @@
-# 백준 1927번 '최소 힙' - 재도전 필요!
+# 백준 1927번 '최소 힙'
 
 ## 제한
 ![image](https://user-images.githubusercontent.com/82142527/179935739-13325939-973d-46aa-8ad1-477cf98612c6.png)  
