@@ -13,7 +13,7 @@
             int N = int.Parse(Console.ReadLine());
 
             long[] npotNums = new long[N];
-            int num;
+            long num;
             long npot = 1;
             for (int i = 0; i < N; i++)
             {
@@ -27,7 +27,7 @@
                 npotNums[i] = npot;
             }
 
-            int answer = 0;
+            long answer = 0;
             foreach (int npotNum in npotNums)
             {
                 answer = answer ^ npotpNum;
