@@ -13,69 +13,80 @@ namespace BOJ
             StreamReader reader = new StreamReader(Console.OpenStandardInput());
             StringBuilder sb = new StringBuilder();
 
-            string[] sentence = reader.ReadLine().Split();
-            char[] word;
-            char c;
-            bool check;
-            Stack<char> stack;
-            while (!sentence[0].Equals("."))
+            String s;
+
+            while (true)
             {
-                stack = new Stack<char>();
-                check = true;
-                for (int i = 0; i < sentence.Length; i++)
+                s = reader.ReadLine();
+
+                if (s.Equals("."))
                 {
-                    word = sentence[i].ToCharArray();
-                    for(int j = 0; j < word.Length; j++)
-                    {
-                        c = word[j];
-                        if (c == '(' || c == '[')
-                        {
-                            stack.Push(c);
-                        }
-
-                        else if (c == ')')
-                        {
-                            if (stack.Count == 0 || stack.Peek() != '(')
-                            {
-                                sb.Append("no\n");
-                                check = false;
-                                break;
-                            }
-                            else
-                            {
-                                stack.Pop();
-                            }
-                        }
-
-                        else if (c == ']')
-                        {
-                            if (stack.Count == 0 || stack.Peek() != '[')
-                            {
-                                sb.Append("no\n");
-                                check = false;
-                                break;
-                            }
-                            else
-                            {
-                                stack.Pop();
-                            }
-                        }
-                    }
-
-                    if (!check)
-                        break;
+                    break;
                 }
 
-                if (check)
-                    sb.Append("yes\n");
-
-                sentence = reader.ReadLine().Split();
+                sb.Append(Solve(s)).Append('\n');
             }
-            
+
             writer.WriteLine(sb.ToString());
 
             writer.Close();
             reader.Close();
+        }
+
+        public static String Solve(String s)
+        {
+            Stack<Char> stack = new Stack<Char>();
+            char[] word;
+            char c;
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                word = s.ToCharArray();
+
+                for (int j = 0; j < word.Length; j++)
+                {
+                    c = word[j];
+
+
+                    if (c == '(' || c == '[')
+                    {
+                        stack.Push(c);
+                    }
+
+                    else if (c == ')')
+                    {
+                        if (stack.Count == 0 || stack.Peek() != '(')
+                        {
+                            return "no";
+                        }
+                        else
+                        {
+                            stack.Pop();
+                        }
+                    }
+
+                    else if (c == ']')
+                    {
+                        if (stack.Count == 0 || stack.Peek() != '[')
+                        {
+                            return "no";
+                        }
+                        else
+                        {
+                            stack.Pop();
+                        }
+                    }
+                }
+            }
+
+            if (stack.Count == 0)
+            {
+                return "yes";
+            }
+            else
+            {
+                return "no";
+            }
         }
     }
 }
