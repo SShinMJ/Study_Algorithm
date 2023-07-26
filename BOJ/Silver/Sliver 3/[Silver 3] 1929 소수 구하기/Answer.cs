@@ -6,6 +6,8 @@ namespace BOJ
 {
     internal class Program
     {
+        static bool[] prime;
+        
         static void Main(string[] args)
         {
             StreamWriter writer = new StreamWriter(Console.OpenStandardOutput());
@@ -16,9 +18,13 @@ namespace BOJ
             int N = int.Parse(s[0]);
             int M = int.Parse(s[1]);
 
+            prime = new bool[M+1];
+            prime[0] = prime[1] = true;
+            Decimal();
+
             for(int i = N; i <= M; i++)
             {
-                if (Decimal(i))
+                if (!prime[i])
                 {
                     sb.Append(i + "\n");
                 }
@@ -30,15 +36,22 @@ namespace BOJ
             reader.Close();
         }
 
-        static bool Decimal(int num)
+        static void Decimal()
         {
-            for(int i = 2; i <= Math.Sqrt(num); i++)
+            // 특정 수의 배수에 해당하는 수를 모두 지운다.
+            for (int i = 2; i <= Math.Sqrt(prime.Length); i++)
             {
-                if (num % i == 0)
-                    return false;
-            }
+                if (prime[i])
+                {
+                    continue;
+                }
 
-            return true;
+                // 이미 지워진 숫자가 아니라면, 그 배수부터 출발하여, 가능한 모든 숫자 지우기
+                for (int j = i * i; j < prime.Length; j += i)
+                {
+                    prime[j] = true;
+                }
+            }
         }
     }
 }
